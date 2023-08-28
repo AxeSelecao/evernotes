@@ -1,12 +1,11 @@
-import { useState } from "react";
 import "./assets/styles/style.scss";
-import { TaskCard } from "../entities/task/ui/task-card";
 import { Form } from "../widgets/form/ui";
+import { TaskRow } from "../entities/task/ui/task-row";
 
 function App() {
   return (
     <div className="app">
-      <TaskCard />
+      <TaskRow />
       <Form />
     </div>
   );

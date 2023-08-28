@@ -6,7 +6,15 @@ import {
 } from "@reduxjs/toolkit";
 
 export const initialState = {
-  tasks: [[], [], [], [], [], [], []],
+  week: [
+    { dayOfWeek: "Monday", tasks: [] },
+    { dayOfWeek: "Tuesday", tasks: [] },
+    { dayOfWeek: "Wednesday", tasks: [] },
+    { dayOfWeek: "Thursday", tasks: [] },
+    { dayOfWeek: "Friday", tasks: [] },
+    { dayOfWeek: "Saturday", tasks: [] },
+    { dayOfWeek: "Sunday", tasks: [] },
+  ],
 };
 
 export const taskModel = createSlice({
@@ -14,8 +22,13 @@ export const taskModel = createSlice({
   initialState,
   reducers: {
     addTask: (state, action) => {
-      console.log(state, action.payload);
-      state.tasks[+action.payload.day - 1].push(action.payload);
+      console.log(action.payload);
+      //state.tasks[+action.payload.day - 1].push(action.payload);
+		state.week.map((day) => {
+			if (day.dayOfWeek == action.payload.day) {
+				day.tasks.push(action.payload)
+			}
+		})
     },
     toggleTask: (state, action) => {
       console.log(state, action.payload);
