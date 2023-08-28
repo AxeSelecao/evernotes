@@ -24,11 +24,12 @@ export const taskModel = createSlice({
     addTask: (state, action) => {
       console.log(action.payload);
       //state.tasks[+action.payload.day - 1].push(action.payload);
-		state.week.map((day) => {
-			if (day.dayOfWeek == action.payload.day) {
-				day.tasks.push(action.payload)
-			}
-		})
+      state.week.map((day) => {
+        if (day.dayOfWeek == action.payload.day) {
+          action.payload.complete = false;
+          day.tasks.push(action.payload);
+        }
+      });
     },
     toggleTask: (state, action) => {
       console.log(state, action.payload);

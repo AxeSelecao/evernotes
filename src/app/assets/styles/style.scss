@@ -5,35 +5,53 @@
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
+  color: white;
 }
 
 .app {
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b3be1dae-3caa-4d45-be6c-3de586ba95e2/de46g7x-d7725171-4f49-4b7a-8868-106d473393db.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IzYmUxZGFlLTNjYWEtNGQ0NS1iZTZjLTNkZTU4NmJhOTVlMlwvZGU0Nmc3eC1kNzcyNTE3MS00ZjQ5LTRiN2EtODg2OC0xMDZkNDczMzkzZGIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Rxl46bBrdesoUAUqZkSTr0ngx8q7H__v41xHbm0-lng");
-  //  background-color: #2a2a2a;
   background-size: 100% 100%;
   min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
 
   h2 {
-    color: white;
-	 text-shadow: 1px 1px 20px black;
+    text-shadow: 1px 1px 20px black;
+    text-align: center;
   }
 
   .form {
-    width: 30%;
+    width: fit-content;
     margin: 0 auto 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     &__input {
-      background-color: white;
-      border-radius: 2px;
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
 
-      input {
-        margin-left: 30px;
+      input,
+      select {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 5px 10px;
+        color: white;
+        font-size: 20px;
+
         border: none;
         outline: none;
+      }
+
+      select {
+        cursor: pointer;
+      }
+
+      input:first-of-type {
+        border-radius: 5px 0 0 5px;
+      }
+
+      input:last-of-type {
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
       }
     }
   }
@@ -42,9 +60,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60%;
-    min-height: 500px;
+    width: 85%;
+    min-height: 700px;
     margin: 0 auto 50px;
-    padding-top: 50px;
+    padding-top: 70px;
+
+    &__daylist {
+      width: 230px;
+      &-task {
+        padding: 5px 10px;
+        margin: 10px 0;
+        font-size: 20px;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: inherit;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+      }
+    }
   }
 }

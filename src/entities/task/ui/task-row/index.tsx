@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { TaskCard } from "../task-card";
 
 export const TaskRow = () => {
   const data = useSelector((state) => state.tasks.week);
@@ -7,10 +8,10 @@ export const TaskRow = () => {
     <div className="taskrow">
       {data.map((day) => {
         return (
-          <div key={day.dayOfWeek}>
+          <div className="taskrow__daylist" key={day.dayOfWeek}>
             <h2>{day.dayOfWeek}</h2>
             {day.tasks.map((task) => {
-              return <p key={task.id}>{task.task}</p>;
+              return <TaskCard task={task.todo} />;
             })}
           </div>
         );
