@@ -61,7 +61,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 85%;
-    min-height: 700px;
+    min-height: 500px;
     margin: 0 auto 50px;
     padding-top: 70px;
 
@@ -75,7 +75,8 @@
         width: inherit;
         display: flex;
         flex-direction: row;
-        align-items: end;
+        align-items: center;
+		  justify-content: space-between;
       }
     }
   }

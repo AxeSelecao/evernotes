@@ -26,6 +26,7 @@ export const taskModel = createSlice({
       //state.tasks[+action.payload.day - 1].push(action.payload);
       state.week.map((day) => {
         if (day.dayOfWeek == action.payload.day) {
+          action.payload.id = day.tasks.length + 1;
           action.payload.complete = false;
           day.tasks.push(action.payload);
         }
@@ -33,9 +34,16 @@ export const taskModel = createSlice({
     },
     toggleTask: (state, action) => {
       console.log(state, action.payload);
+      state.week[0].tasks[0].complete = action.payload;
     },
     deleteTask: (state, action) => {
       console.log(state, action.payload);
+      state.week = state.week.map((day) => {
+        if (day.dayOfWeek === action.payload.day) {
+          day.tasks = day.tasks.filter((task) => task.id !== action.payload.id);
+        }
+        return day;
+      });
     },
   },
 });
