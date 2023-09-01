@@ -1,21 +1,26 @@
-import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { toggleTask, deleteTask } from "../../model/tasks";
 
 export const TaskCard = (props) => {
-  const [checkboxValue, setCheckboxValue] = useState(false);
   const dispatch = useDispatch();
 
+  console.log(props);
   return (
     <div className="taskrow__daylist-task">
       <input
         type="checkbox"
+        checked={props.complete}
         onChange={() => {
-          setCheckboxValue(!checkboxValue);
-          dispatch(toggleTask(!checkboxValue));
+          dispatch(
+            toggleTask({
+              id: props.id,
+              day: props.day,
+              complete: !props.complete,
+            })
+          );
         }}
       />
-      <p style={{ textDecoration: checkboxValue && "line-through" }}>
+      <p style={{ textDecoration: props.complete && "line-through" }}>
         {props.task}
       </p>
       <svg

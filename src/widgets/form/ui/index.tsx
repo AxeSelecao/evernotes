@@ -5,11 +5,11 @@ import { addTask } from "../../../entities/task/model/tasks";
 type Inputs = {};
 
 export const Form = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, resetField } = useForm();
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     dispatch(addTask(data));
-    reset();
+    resetField<string>("todo");
   };
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
