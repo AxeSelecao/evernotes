@@ -1,7 +1,14 @@
 import { useDispatch } from "react-redux";
 import { toggleTask, deleteTask } from "../../model/tasks";
 
-export const TaskCard = (props) => {
+type Props = {
+  id: number;
+  task: string;
+  day: string;
+  complete: boolean;
+};
+
+export const TaskCard = (props: Props) => {
   const dispatch = useDispatch();
 
   console.log(props);
@@ -20,7 +27,7 @@ export const TaskCard = (props) => {
           );
         }}
       />
-      <p style={{ textDecoration: props.complete && "line-through" }}>
+      <p style={{ textDecoration: props.complete ? "line-through" : "none" }}>
         {props.task}
       </p>
       <svg
