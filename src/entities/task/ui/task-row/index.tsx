@@ -3,7 +3,6 @@ import { TaskCard } from "../task-card";
 
 export const TaskRow = () => {
   const data = useSelector((state) => state.tasks.week);
-  //  console.log(data);
   return (
     <div className="taskrow">
       {data.map((day) => {
@@ -17,6 +16,7 @@ export const TaskRow = () => {
                   id={task.id}
                   day={task.day}
                   complete={task.complete}
+                  todos={task.todos}
                 />
               );
             })}

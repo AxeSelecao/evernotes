@@ -8,6 +8,10 @@
   color: white;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .app {
   background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b3be1dae-3caa-4d45-be6c-3de586ba95e2/de46g7x-d7725171-4f49-4b7a-8868-106d473393db.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2IzYmUxZGFlLTNjYWEtNGQ0NS1iZTZjLTNkZTU4NmJhOTVlMlwvZGU0Nmc3eC1kNzcyNTE3MS00ZjQ5LTRiN2EtODg2OC0xMDZkNDczMzkzZGIuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Rxl46bBrdesoUAUqZkSTr0ngx8q7H__v41xHbm0-lng");
   background-size: cover;
@@ -69,7 +73,7 @@
       width: 230px;
       &-task {
         padding: 5px 10px;
-        margin: 10px 0;
+        margin: 10px 0 0;
         font-size: 20px;
         background-color: rgba(0, 0, 0, 0.9);
         width: inherit;
