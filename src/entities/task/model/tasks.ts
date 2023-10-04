@@ -50,36 +50,49 @@ export const taskModel = createSlice({
       }
     },
     toggleTask: (state, action) => {
-      let allCompleted = true;
+      let allCompleted = false;
       if (action.payload[1] === "inner") {
-        for (let i = 0; i < state.week.length; i++) {
-          if (state.week[i].dayOfWeek === action.payload[0].day) {
-            state.week[i].tasks[action.payload[2] - 1].todos.map(
-              (todo, index) => {
-                if (todo.id === action.payload[0].id) {
-                  todo.complete = !todo.complete;
-                  if (!todo.complete) {
-                    state.week[i].tasks[action.payload[2] - 1].complete =
-                      !state.week[i].tasks[action.payload[2] - 1].complete;
-                  }
-                }
-                if (!todo.complete) {
-                  allCompleted = false;
-                }
+        state.week.map((day) => {
+          if (day.dayOfWeek === action.payload[0].day) {
+            day.tasks[action.payload[2] - 1].todos[
+              action.payload[0].id - 1
+            ].complete =
+              !day.tasks[action.payload[2] - 1].todos[action.payload[0].id - 1]
+                .complete;
+
+            const todos = day.tasks[action.payload[2] - 1].todos;
+
+            for (let i = 0; i < todos.length; i++) {
+              const todo = todos[i];
+              if (todo.complete === false) {
+                allCompleted = false;
+                console.log("in loop", allCompleted);
+                day.tasks[action.payload[2] - 1].complete = false;
+                return;
               }
-            );
-            if (allCompleted) {
-              state.week[i].tasks[action.payload[2] - 1].complete =
-                !state.week[i].tasks[action.payload[2] - 1].complete;
             }
+
+            allCompleted = true;
+            console.log("after loop", allCompleted);
+
+            day.tasks[action.payload[2] - 1].complete = true;
           }
-        }
+        });
       } else {
         state.week.map((day) => {
           if (day.dayOfWeek === action.payload.day) {
             day.tasks.map((task) => {
               if (task.id === action.payload.id) {
                 task.complete = !task.complete;
+                if (task.todos) {
+                  task.todos.map((todo) => {
+                    if (task.complete) {
+                      todo.complete = true;
+                    } else if (!task.complete) {
+                      todo.complete = false;
+                    }
+                  });
+                }
               }
             });
           }
@@ -88,6 +101,7 @@ export const taskModel = createSlice({
     },
     deleteTask: (state, action) => {
       if (action.payload[1] === "inner") {
+        console.log(action.payload);
         for (let i = 0; i < state.week.length; i++) {
           if (state.week[i].dayOfWeek === action.payload[0].day) {
             state.week[i].tasks[action.payload[2] - 1].todos = state.week[
