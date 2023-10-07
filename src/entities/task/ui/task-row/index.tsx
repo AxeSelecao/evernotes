@@ -9,7 +9,7 @@ export const TaskRow = () => {
         return (
           <div className="taskrow__daylist" key={day.dayOfWeek}>
             <h2>{day.dayOfWeek}</h2>
-            {day.tasks.map((task) => {
+            {day.tasks.map((task, i) => {
               return (
                 <TaskCard
                   task={task.todo}
@@ -17,6 +17,7 @@ export const TaskRow = () => {
                   day={task.day}
                   complete={task.complete}
                   todos={task.todos}
+						index={i}
                 />
               );
             })}

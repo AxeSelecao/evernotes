@@ -8,6 +8,7 @@ type Props = {
   day: string;
   complete: boolean;
   todos: string[];
+  index: number;
 };
 
 type Inputs = {};
@@ -106,7 +107,14 @@ export const TaskCard = (props: Props) => {
                 type="checkbox"
                 checked={props.todos[index].complete}
                 onChange={() => {
-                  dispatch(toggleTask([props.todos[index], "inner", props.id]));
+                  dispatch(
+                    toggleTask([
+                      props.todos[index],
+                      "inner",
+                      props.index,
+                      index,
+                    ])
+                  );
                 }}
               />
               <p
@@ -120,7 +128,14 @@ export const TaskCard = (props: Props) => {
               </p>
               <svg
                 onClick={() =>
-                  dispatch(deleteTask([props.todos[index], "inner", props.id]))
+                  dispatch(
+                    deleteTask([
+                      props.todos[index],
+                      "inner",
+                      props.index,
+                      index,
+                    ])
+                  )
                 }
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

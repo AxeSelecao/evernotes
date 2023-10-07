@@ -52,22 +52,20 @@ export const taskModel = createSlice({
     toggleTask: (state, action) => {
       let allCompleted = false;
       if (action.payload[1] === "inner") {
+        console.log(action.payload);
         state.week.map((day) => {
           if (day.dayOfWeek === action.payload[0].day) {
-            day.tasks[action.payload[2] - 1].todos[
-              action.payload[0].id - 1
-            ].complete =
-              !day.tasks[action.payload[2] - 1].todos[action.payload[0].id - 1]
-                .complete;
+            day.tasks[action.payload[2]].todos[action.payload[3]].complete =
+              !day.tasks[action.payload[2]].todos[action.payload[3]].complete;
 
-            const todos = day.tasks[action.payload[2] - 1].todos;
+            const todos = day.tasks[action.payload[2]].todos;
 
             for (let i = 0; i < todos.length; i++) {
               const todo = todos[i];
               if (todo.complete === false) {
                 allCompleted = false;
                 console.log("in loop", allCompleted);
-                day.tasks[action.payload[2] - 1].complete = false;
+                day.tasks[action.payload[2]].complete = false;
                 return;
               }
             }
@@ -75,7 +73,7 @@ export const taskModel = createSlice({
             allCompleted = true;
             console.log("after loop", allCompleted);
 
-            day.tasks[action.payload[2] - 1].complete = true;
+            day.tasks[action.payload[2]].complete = true;
           }
         });
       } else {
@@ -104,11 +102,9 @@ export const taskModel = createSlice({
         console.log(action.payload);
         for (let i = 0; i < state.week.length; i++) {
           if (state.week[i].dayOfWeek === action.payload[0].day) {
-            state.week[i].tasks[action.payload[2] - 1].todos = state.week[
-              i
-            ].tasks[action.payload[2] - 1].todos.filter(
-              (task) => task.id !== action.payload[0].id
-            );
+            state.week[i].tasks[action.payload[2]].todos = state.week[i].tasks[
+              action.payload[2]
+            ].todos.filter((todo, index) => index !== action.payload[3]);
           }
         }
       } else {
