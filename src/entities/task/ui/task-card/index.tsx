@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { addTask, toggleTask, deleteTask } from "../../model/tasks";
 
 type Props = {
@@ -9,22 +10,32 @@ type Props = {
   todos: string[];
 };
 
+type Inputs = {};
+
 export const TaskCard = (props: Props) => {
+  const { register, handleSubmit, resetField } = useForm();
   const dispatch = useDispatch();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    dispatch(addTask([props, "inner", data.innerTodo]));
+
+    resetField<string>("innerTodo");
+  };
 
   return (
     <div>
       <div className="taskrow__daylist-task">
         <div>
-          <span
+          {/*<span
             className="pointer"
             style={{ marginRight: 15 }}
             onClick={() => {
-              dispatch(addTask([props, "inner"]));
+              //  dispatch(addTask([props, "inner"]));
             }}
           >
             +
-          </span>
+          </span>*/}
           <input
             type="checkbox"
             checked={props.complete}
@@ -59,6 +70,34 @@ export const TaskCard = (props: Props) => {
           />{" "}
         </svg>
       </div>
+      <form
+        className="innerform"
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: "flex" }}
+      >
+        <input
+          {...register("innerTodo")}
+          type="text"
+          placeholder="Type a task..."
+          style={{
+            background: "rgba(0, 0, 0)",
+            border: "none",
+            outline: "none",
+          }}
+        />
+
+        <input
+          type="submit"
+          value="Add task"
+          style={{
+            background: "rgba(0, 0, 0)",
+            border: "1px solid rgba(255, 255, 255, 0.3)",
+            outline: "none",
+            cursor: "pointer",
+            padding: "5px",
+          }}
+        />
+      </form>
       <div className="taskrow__innertaskslist">
         {props.todos.map((item, index) => {
           return (

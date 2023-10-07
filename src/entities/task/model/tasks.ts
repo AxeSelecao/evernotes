@@ -29,7 +29,7 @@ export const taskModel = createSlice({
               if (state.week[i].tasks[j].id == action.payload[0].id) {
                 state.week[i].tasks[j].todos.push({
                   id: state.week[i].tasks[j].todos.length + 1,
-                  todo: "todo",
+                  todo: action.payload[2],
                   day: action.payload[0].day,
                   complete: false,
                 });
