@@ -70,7 +70,6 @@ export const taskModel = createSlice({
       }
     },
     toggleTask: (state, action) => {
-      let allCompleted = false;
       if (action.payload[1] === "inner") {
         state.week.map((day) => {
           if (day.dayOfWeek === action.payload[0].day) {
@@ -82,13 +81,10 @@ export const taskModel = createSlice({
             for (let i = 0; i < todos.length; i++) {
               const todo = todos[i];
               if (todo.complete === false) {
-                allCompleted = false;
                 day.tasks[action.payload[2]].complete = false;
                 return;
               }
             }
-
-            allCompleted = true;
 
             day.tasks[action.payload[2]].complete = true;
           }
