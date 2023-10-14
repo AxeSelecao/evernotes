@@ -2,16 +2,18 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../../entities/task/model/tasks";
 
-type Inputs = {};
+type Inputs = {
+  todo: string;
+  day: string;
+};
 
 export const Form = () => {
-  const { register, handleSubmit, resetField } = useForm();
+  const { register, handleSubmit, resetField } = useForm<Inputs>();
   const dispatch = useDispatch();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     if (data.todo.length > 0) {
       dispatch(addTask(data));
-      resetField<string>("todo");
+      resetField("todo");
     }
   };
   return (

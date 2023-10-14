@@ -1,11 +1,31 @@
-import {
-  createSelector,
-  createSlice,
-  Dispatch,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const initialState = {
+type TodosItem = {
+  complete: boolean;
+  day: string;
+  id: number;
+  todo: string;
+};
+
+type TasksItem = {
+  complete: boolean;
+  day: string;
+  id: number;
+  index: number;
+  task: string;
+  todos: TodosItem[];
+};
+
+type WeekItem = {
+  dayOfWeek: string;
+  tasks: TasksItem[];
+};
+
+type State = {
+  week: WeekItem[];
+};
+
+export const initialState: State = {
   week: [
     { dayOfWeek: "Monday", tasks: [] },
     { dayOfWeek: "Tuesday", tasks: [] },
@@ -52,7 +72,6 @@ export const taskModel = createSlice({
     toggleTask: (state, action) => {
       let allCompleted = false;
       if (action.payload[1] === "inner") {
-        console.log(action.payload);
         state.week.map((day) => {
           if (day.dayOfWeek === action.payload[0].day) {
             day.tasks[action.payload[2]].todos[action.payload[3]].complete =
@@ -64,14 +83,12 @@ export const taskModel = createSlice({
               const todo = todos[i];
               if (todo.complete === false) {
                 allCompleted = false;
-                console.log("in loop", allCompleted);
                 day.tasks[action.payload[2]].complete = false;
                 return;
               }
             }
 
             allCompleted = true;
-            console.log("after loop", allCompleted);
 
             day.tasks[action.payload[2]].complete = true;
           }
@@ -99,12 +116,21 @@ export const taskModel = createSlice({
     },
     deleteTask: (state, action) => {
       if (action.payload[1] === "inner") {
-        console.log(action.payload);
         for (let i = 0; i < state.week.length; i++) {
           if (state.week[i].dayOfWeek === action.payload[0].day) {
+            console.log(action.payload);
             state.week[i].tasks[action.payload[2]].todos = state.week[i].tasks[
               action.payload[2]
-            ].todos.filter((todo, index) => index !== action.payload[3]);
+            ].todos.filter((_, index) => index !== action.payload[3]);
+
+            state.week[i].tasks[action.payload[2]].todos.map((todo) => {
+              if (!todo.complete) {
+                return;
+              }
+            });
+
+            state.week[i].tasks[action.payload[2]].complete =
+              !state.week[i].tasks[action.payload[2]].complete;
           }
         }
       } else {

@@ -7,36 +7,35 @@ type Props = {
   task: string;
   day: string;
   complete: boolean;
-  todos: string[];
+  todos: Todo[];
   index: number;
 };
 
-type Inputs = {};
+type Todo = {
+  complete: boolean;
+  day: string;
+  id: number;
+  todo: string;
+};
+
+type Inputs = {
+  innerTodo: string;
+};
 
 export const TaskCard = (props: Props) => {
-  const { register, handleSubmit, resetField } = useForm();
+  const { register, handleSubmit, resetField } = useForm<Inputs>();
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     dispatch(addTask([props, "inner", data.innerTodo]));
 
-    resetField<string>("innerTodo");
+    resetField("innerTodo");
   };
 
   return (
     <div>
       <div className="taskrow__daylist-task">
         <div>
-          {/*<span
-            className="pointer"
-            style={{ marginRight: 15 }}
-            onClick={() => {
-              //  dispatch(addTask([props, "inner"]));
-            }}
-          >
-            +
-          </span>*/}
           <input
             type="checkbox"
             checked={props.complete}
@@ -77,13 +76,15 @@ export const TaskCard = (props: Props) => {
         style={{ display: "flex" }}
       >
         <input
-          {...register("innerTodo")}
+          {...register("innerTodo", { required: true })}
           type="text"
           placeholder="Type a task..."
           style={{
             background: "rgba(0, 0, 0)",
             border: "none",
             outline: "none",
+            width: "70%",
+            paddingLeft: "10px",
           }}
         />
 
@@ -96,6 +97,7 @@ export const TaskCard = (props: Props) => {
             outline: "none",
             cursor: "pointer",
             padding: "5px",
+            width: "30%",
           }}
         />
       </form>
