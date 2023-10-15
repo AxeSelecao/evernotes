@@ -114,19 +114,28 @@ export const taskModel = createSlice({
       if (action.payload[1] === "inner") {
         for (let i = 0; i < state.week.length; i++) {
           if (state.week[i].dayOfWeek === action.payload[0].day) {
-            console.log(action.payload);
             state.week[i].tasks[action.payload[2]].todos = state.week[i].tasks[
               action.payload[2]
             ].todos.filter((_, index) => index !== action.payload[3]);
 
-            state.week[i].tasks[action.payload[2]].todos.map((todo) => {
+            for (
+              let j = 0;
+              j < state.week[i].tasks[action.payload[2]].todos.length;
+              j++
+            ) {
+              const todo = state.week[i].tasks[action.payload[2]].todos[j];
               if (!todo.complete) {
+                state.week[i].tasks[action.payload[2]].complete = false;
+                // console.log("SOMETHIN 1");
                 return;
               }
-            });
+            }
 
-            state.week[i].tasks[action.payload[2]].complete =
-              !state.week[i].tasks[action.payload[2]].complete;
+            //console.log("SOMETHIN 2");
+
+            if (state.week[i].tasks[action.payload[2]].todos.length > 0) {
+              state.week[i].tasks[action.payload[2]].complete = true;
+            }
           }
         }
       } else {
